@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% load cart %}
+
+
+ <!-- body -->
+   
+    <div class="container-fluid mt-3">
+      <div class="row">
+          <!-- filter -->
+            <div class="col-lg-3 mx-auto">
+              <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                  Categories
+                </a>
+                <a href="/" class="list-group-item list-group-item-action">All products</a>
+                
+                {% for category in categories %}
+                <a href="/?category={{category.id}}" class="list-group-item list-group-item-action">{{category.name}}</a>
+                {% endfor %}
+                </div>
+            </div>
+          <!-- all products -->
+
+        <div id="products" class="col-lg-9 mx-auto">
+          <div class="row mx-auto">
+
+      
+            {% for i in products %}
+                 <!-- <table>
+                     <tr>
+                         <td>{{i.name}}</td>
+                         <td> : {{i.price}}</td>
+                         <td> : {{i.category.name}}</td>
+                         <td> : {{i.image}}</td>
+                     </tr>
+                 </table> -->
+                 <div class="card mx-auto mb-3" style="width: 18rem;">
+                   <img src="{{i.image.url}}" class="card-img-top" alt="Card image cap">
+                   <div class="card-body">
+                     <p class="card-title">{{i.name}}</p>
+                     <p class="card-text"><b>{{i.price}}</b></p>
+                    {{i | is_in_cart:request.session.cart}}
+                     <form action="/" method="POST" >
+                      {% csrf_token %}
+                      <input hidden type="text" name="product" value="{{i.id}}">
+                      <input type="submit" class="btn btn-light border btn-sm" value="Add To Cart">
+                   
+                     </form>
+    
+                    </div>
+                    <div class="card_footer p-0 row no-gutters ">
+                      <input type="submit" value="-" class="col-2 btn btn-block btn-secondary ">
+                      <div class="text-center col">3 in cart</div>
+                      <input type="submit" value="+" class="col-2 btn btn-block btn-secondary ">
+                    </div>
+                 </div>
+         
+             {% endfor %}
+           </div>
+        </div>
+      </div>
+
+    
+
+
+
+
+</div>
+{% endblock %}
