@@ -49,7 +49,7 @@
                       {% if i|is_in_cart:request.session.cart %}
                       <div  class="row  no-gutters" >
                         <input type="submit" value="-" class="col-2 btn btn-block btn-secondary ">
-                        <div class="text-center col">2 in Cart</div>
+                        <div class="text-center col">{{i|cart_quantity:request.session.cart}} in Cart</div>
                         <input type="submit" value="+" class="col-2 btn btn-block btn-secondary ">
                       </div>
                       {% else %}
