@@ -41,22 +41,25 @@
                   <div class="card-body">
                      <p class="card-title">{{i.name}}</p>
                      <p class="card-text"><b>{{i.price}}</b></p>
-                      {{ i | is_in_cart:request.session.cart }}
+                      <!-- {{ i | is_in_cart:request.session.cart }} -->
                     
                     </div>
 
-                    <div class="card-footer p-0 row no-gutters">
-                    <form action="/" method="POST" class="btn-block">
-                      {% csrf_token %}
-                     <input hidden name="product" value="{{i.id}}">
-                    <input type="submit" class="float-right btn btn-light border form-control" value="Add To Cart">
-                    </form>
-
-                    <div  class="row" hidden>
-                      <input type="submit" value="-" class="col-2 btn btn-block btn-secondary ">
-                      <div class="text-center col">2 in Cart</div>
-                      <input type="submit" value="+" class="col-2 btn btn-block btn-secondary ">
-                    </div>
+                    <div class="card-footer p-0 ">
+                      {% if i|is_in_cart:request.session.cart %}
+                      <div  class="row  no-gutters" >
+                        <input type="submit" value="-" class="col-2 btn btn-block btn-secondary ">
+                        <div class="text-center col">2 in Cart</div>
+                        <input type="submit" value="+" class="col-2 btn btn-block btn-secondary ">
+                      </div>
+                      {% else %}
+                      <form action="/" method="POST" class="btn-block">
+                        {% csrf_token %}
+                      <input hidden name="product" value="{{i.id}}">
+                      <input type="submit" class="float-right btn btn-light border form-control" value="Add To Cart">
+                      </form>
+                      {% endif %}
+                   
                   </div>
                   </div>
          
