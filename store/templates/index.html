@@ -50,7 +50,11 @@
                       <div  class="row  no-gutters" >
                         <input type="submit" value="-" class="col-2 btn btn-block btn-secondary ">
                         <div class="text-center col">{{i|cart_quantity:request.session.cart}} in Cart</div>
-                        <input type="submit" value="+" class="col-2 btn btn-block btn-secondary ">
+                        <form action="/" method="post" class="col-2 ">
+                        {% csrf_token %}
+                        <input hidden name="product" value="{{i.id}}">
+                        <input type="submit" value="+" class="btn btn-block btn-secondary ">
+                        </form>
                       </div>
                       {% else %}
                       <form action="/" method="POST" class="btn-block">
