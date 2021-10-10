@@ -6,12 +6,16 @@ from django.views import View
 # Create your views here.
 class Home(View):
     def post(self, request):
-        product = request.POST["product"]
+        product = request.POST.get('product')
+        remove = request.POST.get('remove')
         cart = request.session.get('cart')
         if cart:
             quantity = cart.get(product)
             if quantity:
-                cart[product] = quantity + 1
+                if remove:
+                     cart[product] = quantity-1
+                else:
+                    cart[product] = quantity + 1
             else:
                 cart[product] = 1
 
