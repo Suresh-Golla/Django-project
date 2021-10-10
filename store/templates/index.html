@@ -38,38 +38,17 @@
                  </table> -->
                  <div class="card mx-auto mb-3" style="width: 18rem;">
                    <img src="{{i.image.url}}" class="card-img-top" alt="Card image cap">
-                   <div class="card-body">
+                  <div class="card-body">
                      <p class="card-title">{{i.name}}</p>
                      <p class="card-text"><b>{{i.price}}</b></p>
-                    {{i | is_in_cart:request.session.cart}}
-                         
-                    </div>
-                    <div class="card_footer p-0 ">
-                      {% if i|is_in_cart:request.session.cart %}
-                      <div class="row no-gutters" > 
-                        <form action="/" class="col-2" method="post">
-                          {% csrf_token %}
-                          <input hidden type="text" name="remove" value="True">
-                          <input type="submit" value="-" class=" btn btn-block btn-secondary ">
-                      </form>
-                      <div class="text-center col">{{i|cart_quantity:request.session.cart}}in cart</div>
-                      <form action="/" class="col-2" method="post">
-                        {% csrf_token %}
-                        <input hidden type="text" name="product" value="{{i.id}}">
-                        <input type="submit" value="+" class=" btn btn-block btn-secondary ">
+                      {{ i | is_in_cart:request.session.cart }}
+                     <form action="/" method="POST">
+                      {% csrf_token %}
+                     <input hidden name="product" value="{{i.id}}">
+                    <input type="submit" class="float-right btn-block btn btn-light border form-control" value="Add To Cart">
                     </form>
                     </div>
-                    {% else %}
-                    <form action="/" method="POST" class="btn-block" >
-                      {% csrf_token %}
-                      <input hidden type="text" name="product" value="{{i.id}}">
-                      <input type="submit" class="float-right btn-block btn btn-light border form-control" value="Add To Cart">
-
-                     </form>
-                     {% endif %}
-                    </div>
-                      
-                 </div>
+                  </div>
          
              {% endfor %}
            </div>
