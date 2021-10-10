@@ -13,7 +13,10 @@ class Home(View):
             quantity = cart.get(product)
             if quantity:
                 if remove:
-                     cart[product] = quantity-1
+                    if quantity<=1:
+                        cart.pop(product)
+                    else:
+                        cart[product] = quantity-1
                 else:
                     cart[product] = quantity + 1
             else:
@@ -28,6 +31,9 @@ class Home(View):
         return redirect('home')
 
     def get(self, request):
+        cart = request.session.get('cart')
+        if not cart:
+            request.session['cart'] = {}
         products = None
         categories = Category.get_all_categories()
         categoryID = request.GET.get('category')

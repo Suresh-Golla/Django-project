@@ -45,10 +45,10 @@
                     
                     </div>
 
-                    <div class="card-footer p-0">
+                    <div class="card-footer p-0 no-gutters">
                       {% if i|is_in_cart:request.session.cart %}
                       <div  class="row no-gutters">
-                        <form action="/" method="post" class="col-2 ">
+                        <form action="/" method="post" class="col-2">
                           {% csrf_token %}
                           <input hidden type="text" name="product" value="{{i.id}}">
                           <input hidden type="text" name="remove" value='True'>
