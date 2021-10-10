@@ -11,4 +11,10 @@ def is_in_cart(product, cart):
     return False;  
 
 
-    
+    #     try:
+    #         a = int(id)
+    #     except:
+    #         if a == product.id:
+    #             return cart.get(id)
+    # return 0;
+        
